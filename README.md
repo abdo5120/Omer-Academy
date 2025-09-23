@@ -1,2 +1,2 @@
 # Omer-Academy
- An educational platform targeting all educational stages.
+An educational platform targeting all educational stages
