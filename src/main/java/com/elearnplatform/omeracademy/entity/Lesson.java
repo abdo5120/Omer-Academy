@@ -1,6 +1,7 @@
 package com.elearnplatform.omeracademy.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,12 +26,13 @@ public class Lesson
     private String Url;
 
     @Column(name = "order_lesson")
-    private int orderLesson;
+    private Long orderLesson;
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
+    @JsonIgnore
     private Course course;
 
     @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Quiz> quiz;
+    private List<Quiz> quizzes;
 }

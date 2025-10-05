@@ -1,6 +1,7 @@
 package com.elearnplatform.omeracademy.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class Course
 
     @ManyToOne
     @JoinColumn(name = "grade_level_id", nullable = false)
+    @JsonIgnore
     private GradeLevel gradeLevel;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

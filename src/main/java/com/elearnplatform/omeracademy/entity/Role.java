@@ -1,7 +1,18 @@
 package com.elearnplatform.omeracademy.entity;
 
-public enum Role
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
+import java.util.Iterator;
+
+public enum Role implements GrantedAuthority
 {
     ADMIN,
-    STUDENT
+    STUDENT;
+
+    @Override
+    public String getAuthority()
+    {
+        return "";
+    }
 }

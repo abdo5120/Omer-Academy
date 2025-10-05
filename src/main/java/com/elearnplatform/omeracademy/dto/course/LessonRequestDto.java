@@ -14,8 +14,8 @@ public class LessonRequestDto
     private String url;
 
     @NotBlank(message = "Order Lesson is Required")
-    private int orderLesson;
+    private Long orderLesson;
 
     @NotBlank(message = "Course ID is Required")
-    private Integer courseId;
+    private Long courseId;
 }

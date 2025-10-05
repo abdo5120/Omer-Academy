@@ -10,8 +10,11 @@ public class UserLoginDto
     //@NotBlank(message = "Email is Required")
     //private String email;
 
-    @NotBlank(message = "Phone number is Required")
-    private String phone;
+    //@NotBlank(message = "Phone number is Required")
+    //private String phone;
+
+    @NotBlank(message = "Username is Required")
+    private String username;
 
     @NotBlank(message = "Password is Required")
     private String password;

@@ -1,22 +1,22 @@
 package com.elearnplatform.omeracademy.dto.user;
 
 import com.elearnplatform.omeracademy.entity.Role;
-import com.elearnplatform.omeracademy.entity.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 public class UserResponseDto
 {
     private Long id;
-    private String name;
+    private String fullName;
+    private LocalDate birthday;
     //private String email;
+    private String username;
     private String phone;
-    private Status status;
-    private Role role;
+    private String role;
     private String gradeLevelName;
     private LocalDateTime createdAt;
 }

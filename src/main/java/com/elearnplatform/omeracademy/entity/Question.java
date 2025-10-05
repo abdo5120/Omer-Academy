@@ -1,5 +1,6 @@
 package com.elearnplatform.omeracademy.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,6 @@ public class Question
 
     @ManyToOne
     @JoinColumn(name = "quiz_id",nullable = false)
+    @JsonIgnore
     private Quiz quiz;
 }

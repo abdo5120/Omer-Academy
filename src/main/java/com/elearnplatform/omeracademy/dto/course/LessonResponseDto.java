@@ -7,14 +7,13 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 public class LessonResponseDto
 {
-    private Integer id;
+    private Long id;
     private String title;
-    private String videoUrl;
-    private Integer position;
+    private String url;
+    private long orderLesson;
     private String courseTitle;
-    private Integer courseId;
+    private Long courseId;
     private List<QuizResponseDto> quizResponseDtos;
 }

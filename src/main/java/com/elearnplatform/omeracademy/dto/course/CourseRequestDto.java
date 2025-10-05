@@ -14,6 +14,6 @@ public class CourseRequestDto
     private String description;
 
     @NotBlank(message = "Grade Level ID is Required")
-    private Integer gradeLevelId;
+    private Long gradeLevelId;
 
 }

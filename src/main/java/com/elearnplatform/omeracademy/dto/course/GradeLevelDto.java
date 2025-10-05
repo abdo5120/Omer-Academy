@@ -5,9 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class GradeLevelDto
 {
+    private long id;
+
     @NotBlank(message = "Grade Level Name is Required")
     private String name;
 }
