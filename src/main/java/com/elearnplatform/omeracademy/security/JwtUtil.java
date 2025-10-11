@@ -33,7 +33,7 @@ public class JwtUtil
         return Jwts.builder()
                 .addClaims(map)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 2))
+                .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
                 .setSubject(userDetails.getUsername())
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();

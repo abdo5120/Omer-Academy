@@ -6,11 +6,8 @@ import com.elearnplatform.omeracademy.entity.Course;
 import com.elearnplatform.omeracademy.entity.GradeLevel;
 import com.elearnplatform.omeracademy.exception.ResourceNotFoundException;
 import com.elearnplatform.omeracademy.mapper.CourseMapper;
-import com.elearnplatform.omeracademy.mapper.GradeLevelMapper;
-import com.elearnplatform.omeracademy.mapper.LessonMapper;
 import com.elearnplatform.omeracademy.repository.CourseRepository;
 import com.elearnplatform.omeracademy.repository.GradeLevelRepository;
-import com.elearnplatform.omeracademy.repository.LessonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,10 +20,8 @@ public class CourseService
 {
     private final CourseRepository courseRepository;
     private final GradeLevelRepository gradeLevelRepository;
-    private final LessonRepository lessonRepository;
     private final CourseMapper courseMapper;
-    private final GradeLevelMapper gradeLevelMapper;
-    private final LessonMapper lessonMapper;
+
 
     @Transactional
     public CourseResponseDto createCourse(CourseRequestDto courseRequestDto)
@@ -97,4 +92,13 @@ public class CourseService
         return courseMapper.toCourseResponseDto(updatedCourse);
     }
 
+    public long getTotalCoursesCount()
+    {
+        return courseRepository.count();
+    }
+
+    public long getLessonsCountByCourse(long courseId)
+    {
+        return courseRepository.countCoursesById(courseId);
+    }
 }

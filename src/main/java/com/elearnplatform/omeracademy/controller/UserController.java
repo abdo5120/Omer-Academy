@@ -19,21 +19,5 @@ public class UserController
 
     private final UserService userService;
 
-    @GetMapping("/")
-    public ResponseEntity<List<UserResponseDto>> getUsers()
-    {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
-    }
 
-    @GetMapping("/hi")
-    public String hi()
-    {
-        return "Hiiii";
-    }
-
-    @GetMapping("/hello")
-    public String hello()
-    {
-        return "Helloooo";
-    }
 }

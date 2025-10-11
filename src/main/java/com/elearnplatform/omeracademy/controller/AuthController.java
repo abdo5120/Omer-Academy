@@ -57,6 +57,25 @@ public class AuthController
 
         return ResponseEntity.ok(ApiResponse.success("You have successfully logged in.", jwt));
     }
+    /*
+
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse<UserResponseDto>> getCurrentUser(
+            Authentication authentication) {
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(ApiResponse.error("No Authorized"));
+        }
+
+        String username = authentication.getName();
+        User user = userService.getUserByUsername(username);
+
+        UserResponseDto userDto = userService.getUserResponseDtoByUsername(username);
+
+        return ResponseEntity.ok(ApiResponse.success(userDto));
+    }
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<Object>> logout() {
@@ -76,4 +95,6 @@ public class AuthController
 
         return ResponseEntity.ok(ApiResponse.success("Password changed successfully"));
     }
+
+     */
 }

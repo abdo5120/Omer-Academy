@@ -10,4 +10,6 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course, Long>
 {
     List<Course> findByGradeLevelIdOrderByTitle(long gradeLevelId);
+
+    long countCoursesById(long courseId);
 }

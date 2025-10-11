@@ -75,4 +75,10 @@ public class LessonService
         return lessonMapper.toLessonResponseDto(updatedLesson);
     }
 
+    public long getTotalLessonsCount()
+    {
+        return lessonRepository.count();
+    }
+
+
 }

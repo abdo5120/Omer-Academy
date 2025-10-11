@@ -3,11 +3,14 @@ package com.elearnplatform.omeracademy.dto.user;
 import com.elearnplatform.omeracademy.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserResponseDto
 {
     private Long id;

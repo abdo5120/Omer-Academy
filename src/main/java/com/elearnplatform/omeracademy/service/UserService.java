@@ -95,6 +95,11 @@ public class UserService
         userRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
+    public UserResponseDto getUserResponseDtoByUsername(String username) {
+        return userMapper.toUserResponseDto(getUserByUsername(username));
+    }
+
     // Get user by username
     @Transactional(readOnly = true)
     public User getUserByUsername(String username) {
@@ -118,7 +123,7 @@ public class UserService
 
     // Get students by grade level
     @Transactional(readOnly = true)
-    public List<UserResponseDto> getStudentsByGradeLevel(Integer gradeLevelId) {
+    public List<UserResponseDto> getStudentsByGradeLevel(Long gradeLevelId) {
         List<User> students = userRepository.findByRoleAndGradeLevelId(Role.STUDENT, gradeLevelId);
         return userMapper.toUserResponseDtoList(students);
     }
