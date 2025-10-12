@@ -9,6 +9,7 @@ com\elearnplatform\omeracademy\mapper\QuizMapper.class
 com\elearnplatform\omeracademy\OmeracademyApplication.class
 com\elearnplatform\omeracademy\dto\user\UserUpdateDto.class
 com\elearnplatform\omeracademy\dto\course\GradeLevelDto.class
+com\elearnplatform\omeracademy\controller\LessonController.class
 com\elearnplatform\omeracademy\dto\user\UserLoginDto.class
 com\elearnplatform\omeracademy\controller\AuthController.class
 com\elearnplatform\omeracademy\entity\Role.class
@@ -26,6 +27,7 @@ com\elearnplatform\omeracademy\dto\quiz\AnswerResultDto.class
 com\elearnplatform\omeracademy\dto\user\UserRegistrationDto.class
 com\elearnplatform\omeracademy\mapper\LessonMapper.class
 com\elearnplatform\omeracademy\mapper\CourseMapper.class
+com\elearnplatform\omeracademy\controller\GradeLevelController.class
 com\elearnplatform\omeracademy\service\UserService.class
 com\elearnplatform\omeracademy\entity\User.class
 com\elearnplatform\omeracademy\dto\course\CourseRequestDto.class
@@ -34,6 +36,7 @@ com\elearnplatform\omeracademy\entity\Submission.class
 com\elearnplatform\omeracademy\exception\GlobalExceptionHandler.class
 com\elearnplatform\omeracademy\dto\user\PasswordChangeDto.class
 com\elearnplatform\omeracademy\entity\GradeLevel.class
+com\elearnplatform\omeracademy\controller\CourseController.class
 com\elearnplatform\omeracademy\repository\UserRepository.class
 com\elearnplatform\omeracademy\entity\Quiz.class
 com\elearnplatform\omeracademy\entity\Lesson.class

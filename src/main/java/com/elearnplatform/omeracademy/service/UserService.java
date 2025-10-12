@@ -138,7 +138,6 @@ public class UserService
         if (!passwordEncoder.matches(passwordChangeDto.getCurrentPassword(), user.getPasswordHash())) {
             throw new IllegalArgumentException("Current password does not Correct");
         }
-
         // Verify new password confirmation
         if (!passwordChangeDto.getNewPassword().equals(passwordChangeDto.getConfirmPassword())) {
             throw new IllegalArgumentException("New password does not match confirm password");

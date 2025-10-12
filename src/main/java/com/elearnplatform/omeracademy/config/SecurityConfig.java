@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -12,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig
 {
@@ -25,6 +27,7 @@ public class SecurityConfig
                         // ========== Public Endpoints ==========
                         // Authentication - مفتوحة للجميع
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/me").authenticated()
                         // Grade Levels - القراءة مفتوحة للجميع
                         .requestMatchers(HttpMethod.GET, "/api/grade-levels/**").permitAll()
                         // Courses - القراءة مفتوحة للجميع
@@ -34,9 +37,14 @@ public class SecurityConfig
                         // Quizzes - القراءة مفتوحة (بدون الإجابات الصحيحة)
                         .requestMatchers(HttpMethod.GET, "/api/quizzes/**").authenticated()
                         // Error endpoints
-                        //.requestMatchers("/error").permitAll()
+                        .requestMatchers("/error").permitAll()
                         // Swagger/OpenAPI (إذا تم تفعيله)
-                        //.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/swagger-ui.html",
+                                "/webjars/**").permitAll()
 
                         // ========== Grade Level Management ==========
                         // إنشاء وتحديث وحذف

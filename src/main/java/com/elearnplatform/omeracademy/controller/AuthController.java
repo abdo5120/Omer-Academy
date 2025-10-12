@@ -5,13 +5,19 @@ import com.elearnplatform.omeracademy.dto.user.UserLoginDto;
 import com.elearnplatform.omeracademy.dto.user.UserRegistrationDto;
 import com.elearnplatform.omeracademy.dto.user.UserResponseDto;
 import com.elearnplatform.omeracademy.entity.User;
+import com.elearnplatform.omeracademy.exception.ResourceNotFoundException;
+import com.elearnplatform.omeracademy.mapper.UserMapper;
 import com.elearnplatform.omeracademy.response.ApiResponse;
 import com.elearnplatform.omeracademy.security.JwtUtil;
 import com.elearnplatform.omeracademy.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController
 {
     private final UserService userService;
+    private final UserMapper userMapper;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
 
@@ -57,32 +64,49 @@ public class AuthController
 
         return ResponseEntity.ok(ApiResponse.success("You have successfully logged in.", jwt));
     }
-    /*
 
-    @GetMapping("/me")
-    public ResponseEntity<ApiResponse<UserResponseDto>> getCurrentUser(
-            Authentication authentication) {
-
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body(ApiResponse.error("No Authorized"));
+    @PreAuthorize("isAuthenticated()") // ✅ يمكن لأي مستخدم مسجل الخروج فقط إذا كان مسجلًا أصلاً
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request,
+                                         HttpServletResponse response)
+    {
+        HttpSession session = request.getSession(false); // احصل على الجلسة إن وجدت
+        if (session != null) {
+            session.invalidate(); // حذف الجلسة
         }
 
-        String username = authentication.getName();
-        User user = userService.getUserByUsername(username);
+        // حذف الكوكيز لو موجودة
+        var cookies = request.getCookies();
+        if (cookies != null) {
+            for (var cookie : cookies) {
+                cookie.setValue("");
+                cookie.setPath("/");
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+            }
+        }
 
-        UserResponseDto userDto = userService.getUserResponseDtoByUsername(username);
+        return ResponseEntity.ok("Logged out successfully.");
+    }
+
+    @PreAuthorize("isAuthenticated()") // ✅ المستخدم لازم يكون مسجل دخول
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse<UserResponseDto>> getCurrentUser() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new ResourceNotFoundException("User is not authenticated");
+        }
+
+        String username = authentication.getName(); // اسم المستخدم من الـ Security Context
+        User user = userService.getUserByUsername(username);
+        UserResponseDto userDto = userMapper.toUserResponseDto(user);
 
         return ResponseEntity.ok(ApiResponse.success(userDto));
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<Object>> logout() {
-        SecurityContextHolder.clearContext();
-        return ResponseEntity.ok(ApiResponse.success("You have successfully logged out."));
-    }
-
+/*
     @PutMapping("/change-password")
     public ResponseEntity<ApiResponse<Object>> changePassword(
             @Valid @RequestBody PasswordChangeDto passwordDto,

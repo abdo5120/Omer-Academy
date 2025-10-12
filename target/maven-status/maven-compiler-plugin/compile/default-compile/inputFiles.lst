@@ -1,6 +1,9 @@
 C:\Projects\My-Github\Omer-Academy\src\main\java\com\elearnplatform\omeracademy\config\ApplicationSecurity.java
 C:\Projects\My-Github\Omer-Academy\src\main\java\com\elearnplatform\omeracademy\config\SecurityConfig.java
 C:\Projects\My-Github\Omer-Academy\src\main\java\com\elearnplatform\omeracademy\controller\AuthController.java
+C:\Projects\My-Github\Omer-Academy\src\main\java\com\elearnplatform\omeracademy\controller\CourseController.java
+C:\Projects\My-Github\Omer-Academy\src\main\java\com\elearnplatform\omeracademy\controller\GradeLevelController.java
+C:\Projects\My-Github\Omer-Academy\src\main\java\com\elearnplatform\omeracademy\controller\LessonController.java
 C:\Projects\My-Github\Omer-Academy\src\main\java\com\elearnplatform\omeracademy\controller\UserController.java
 C:\Projects\My-Github\Omer-Academy\src\main\java\com\elearnplatform\omeracademy\dto\course\CourseRequestDto.java
 C:\Projects\My-Github\Omer-Academy\src\main\java\com\elearnplatform\omeracademy\dto\course\CourseResponseDto.java
