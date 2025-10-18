@@ -17,7 +17,7 @@ public class UserRegistrationDto
     @NotBlank(message = "The Name is Required")
     private String fullName;
 
-    @NotBlank(message = "birthday is Required")
+    @NotNull(message = "birthday is Required")
     private LocalDate birthday;
 
     //@NotBlank(message = "The Email is Required")
