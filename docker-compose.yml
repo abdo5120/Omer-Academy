@@ -1,0 +1,100 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: academy-mysql
+    restart: always
+
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+      TZ: Africa/Cairo
+
+    ports:
+      - "3320:3306"
+    
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+    networks:
+      - academy-network
+    
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root --password=$MYSQL_ROOT_PASSWORD || exit 1"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 50s
+  # ========================================
+
+  spring-app:
+    container_name: academy-spring
+    restart: always
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    env_file:
+      - .env
+    environment:
+      MYSQL_HOST: mysql
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+      # JWT
+      APP_JWT_SECRET: ${APP_JWT_SECRET}
+
+    ports:
+      - "8081:8081"
+    
+    networks:
+      - academy-network
+
+  # ========================================
+  # phpMyAdmin - Database Management
+  # ========================================
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: academy-phpmyadmin
+    restart: always
+    
+    depends_on:
+      mysql:
+        condition: service_healthy
+    
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+      TZ: Africa/Cairo
+    
+    ports:
+      - "8082:80"
+
+    networks:
+      - academy-network
+
+# ========================================
+# Networks
+# ========================================
+networks:
+  academy-network:
+    driver: bridge
+
+# ========================================
+# Volumes - تخزين دائم للبيانات
+# ========================================
+volumes:
+  mysql_data:
+    driver: local
